@@ -1,11 +1,23 @@
-#obj-m += kernel.o
-obj-m  += parent.o
- 
-  KDIR = /lib/modules/$(shell uname -r)/build
+#obj-m := pstree.o
+#obj-m := ppid.o
+obj-m := parent.o
+
+
+KERNELDIR = /lib/modules/$(shell uname -r)/build
+PWD := $(shell pwd)
 
  
-all:
-	make -C $(KDIR)  M=$(shell pwd) modules
+
+
+default:
+	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules
+
  
+
 clean:
-	make -C $(KDIR)  M=$(shell pwd) clean
+	$(MAKE) -C $(KERNELDIR) M=$(PWD) clean
+
+ 
+
+install:
+	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules_install
